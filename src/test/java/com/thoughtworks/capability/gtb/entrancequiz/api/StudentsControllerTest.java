@@ -9,8 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -39,4 +43,20 @@ public class StudentsControllerTest {
                 .andExpect(jsonPath("$[14].id",is(15)))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void should_add_student() throws Exception {
+        String jsonString = "孙悟空";
+        mockMvc.perform(post("/addStudent").contentType(MediaType.APPLICATION_JSON)
+                .content(jsonString))
+                .andExpect(status().isCreated());
+        mockMvc.perform(get("/students"))
+                .andExpect(jsonPath("$",hasSize(16)))
+                .andExpect(jsonPath("$[0].name",is("成吉思汗")))
+                .andExpect(jsonPath("$[0].id",is(1)))
+                .andExpect(jsonPath("$[15].name",is("孙悟空")))
+                .andExpect(jsonPath("$[15].id",is(16)))
+                .andExpect(status().isOk());
+    }
+
 }

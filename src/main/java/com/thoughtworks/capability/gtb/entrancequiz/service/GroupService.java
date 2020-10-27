@@ -27,6 +27,11 @@ public class GroupService {
         students.add(new Student(15,"蔡文姬"));
     }
 
+    public void createStudent(String studentName) {
+        int index = students.size()+1;
+        Student student = new Student(index,studentName);
+        students.add(student);
+    }
 
     public List<Student> getStudents() {
         return students;
