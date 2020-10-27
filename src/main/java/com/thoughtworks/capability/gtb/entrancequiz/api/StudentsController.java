@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:1234")
@@ -25,5 +26,11 @@ public class StudentsController {
     public ResponseEntity addStudent (@RequestBody String studentName) {
         groupService.createStudent(studentName);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/groups")
+    public ResponseEntity getGroups () {
+        Map<String,List<Student>> students = groupService.getGroups();
+        return ResponseEntity.ok(students);
     }
 }

@@ -59,4 +59,10 @@ public class StudentsControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void should_get_all_group() throws Exception {
+        mockMvc.perform(get("/groups"))
+                .andExpect(status().isOk());
+    }
+
 }
