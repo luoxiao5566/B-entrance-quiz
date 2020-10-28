@@ -30,7 +30,14 @@ public class StudentsController {
 
     @GetMapping("/groups")
     public ResponseEntity getGroups () {
-        Map<String,List<Student>> students = groupService.getGroups();
-        return ResponseEntity.ok(students);
+        Map<Integer,List<Student>> groups = groupService.getGroups();
+        return ResponseEntity.ok(groups);
+    }
+
+    @PostMapping("/groups")
+    public ResponseEntity addStudent () {
+        groupService.grouping();
+        Map<Integer,List<Student>> groups = groupService.getGroups();
+        return ResponseEntity.ok(groups);
     }
 }
