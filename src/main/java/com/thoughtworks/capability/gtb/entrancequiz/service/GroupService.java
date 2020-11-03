@@ -7,6 +7,7 @@ import java.util.*;
 
 @Service
 public class GroupService {
+    // TODO GTB-知识点: - 应该使用Repository层保存数据
     private List<Student> students = new ArrayList<>();
     {
         students.add(new Student(1,"成吉思汗"));
@@ -26,6 +27,8 @@ public class GroupService {
         students.add(new Student(15,"蔡文姬"));
     }
 
+    // TODO GTB-工程实践: - 代码不优雅
+    // TODO GTB-完成度: - 应该在点击分组的时候才生成组
     Map<Integer,List<Student>> groups = new HashMap<>();
     {
         groups.put(1,new ArrayList<>());
@@ -38,6 +41,7 @@ public class GroupService {
 
 
     public void createStudent(String studentName) {
+        // TODO GTB-工程实践: - 计算id的方式不够健壮，可以使用字段保存最大id
         int index = students.size()+1;
         Student student = new Student(index,studentName);
         students.add(student);
@@ -47,7 +51,7 @@ public class GroupService {
         return students;
     }
 
-
+    // TODO GTB-工程实践: - 长方法，建议抽子方法来提高可读性
     public void grouping() {
         List<Student> tempStudents = new ArrayList<>();
         for (Student student: students) {
@@ -55,6 +59,7 @@ public class GroupService {
         }
         Collections.shuffle(tempStudents);
         if (groups.get(1).size() != 0){
+            // TODO GTB-工程实践: - Magic Number
             for (int i = 1; i < 7; i++) {
                 groups.get(i).clear();
             }
